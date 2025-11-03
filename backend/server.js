@@ -5,6 +5,9 @@ import cors from 'cors';
 import logger from './logger.js'; 
 import path from 'path';
 import { fileURLToPath } from 'url';
+import userRoutes from "./routes/userRoutes.js";
+import plantRoutes from "./routes/plantRoutes.js";
+import tradeRoutes from "./routes/tradeRoutes.js";
 
 dotenv.config();
 
@@ -17,15 +20,20 @@ const __dirname = path.dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
-
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
+
+// ROUTES
+app.use("/users", userRoutes);
+app.use("/plants", plantRoutes);
+app.use("/trades", tradeRoutes);
+
+// Health Check
+app.get('/', (req, res) => {
+  res.send('Community Garden backend running!');
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => console.error(err));
-
-app.get('/', (req, res) => {
-  res.send('Community Garden backend running!');
-});
 
 app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));

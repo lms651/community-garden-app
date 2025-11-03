@@ -5,7 +5,8 @@ const tradeSchema = new mongoose.Schema({
     recipient: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
     initiatorPlants: [{ type: mongoose.Schema.Types.ObjectId, ref: "plant" }], // plants offered by initiator
     recipientPlants: [{ type: mongoose.Schema.Types.ObjectId, ref: "plant" }], // plants offered by recipient
-    status: { type: String, enum: ["pending", "accepted", "completed"], default: "pending" }
+    status: { type: String, enum: ["pending", "accepted", "completed", "canceled"], default: "pending" },
+    dateDeleted: { type: Date, default: null }
 }, {
     timestamps: true
     });
