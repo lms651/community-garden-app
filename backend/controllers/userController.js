@@ -77,12 +77,13 @@ export const getUserGarden = async (req, res) => {
 };
 
 // Update user profile
+// add image as req.body later!!!
 export const updateUser = async (req, res) => {
   try {
-    const { userName, email, address } = req.body;
+    const { email, address } = req.body;
     const updatedUser = await User.findOneAndUpdate(
       { _id: req.params.id, dateDeleted: null },
-      { userName, email, address },
+      { email, address },
       { new: true, runValidators: true } // new: true means return updated doc. run validators makes sure you follow schema.
     );
     if (!updatedUser) return res.status(404).json({ message: "User not found" });

@@ -1,5 +1,6 @@
 import express from "express";
-import { createUser, getMapUsers, getUserProfile, getUserGarden, updateUser, deleteUser, getMapUsers, addPlantToGarden, updatTradeStatus, removePlantFromGarden } from "../controllers/userController.js";
+import { createUser, getUserProfile, getUserGarden, updateUser, deleteUser, getMapUsers, addPlantToGarden, removePlantFromGarden } from "../controllers/userController.js";
+import { updateTradeStatus } from "../controllers/tradeController.js";
 
 const router = express.Router();
 

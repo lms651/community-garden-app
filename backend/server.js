@@ -32,8 +32,19 @@ app.get('/', (req, res) => {
   res.send('Community Garden backend running!');
 });
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch(err => console.error(err));
+// mongoose.connect(process.env.MONGO_URI)
+//   .then(() => console.log('✅ MongoDB connected'))
+//   .catch(err => console.error(err));
 
-app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+// app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+
+// Connect DB only if not in test environment
+if (process.env.NODE_ENV !== "test") {
+  mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('✅ MongoDB connected'))
+    .catch(err => console.error(err));
+
+  app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+}
+
+export default app;
