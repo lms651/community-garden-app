@@ -1,6 +1,5 @@
 import express from "express";
-import { createUser, getUserProfile, getUserGarden, updateUser, deleteUser, getMapUsers, addPlantToGarden, removePlantFromGarden } from "../controllers/userController.js";
-import { updateTradeStatus } from "../controllers/tradeController.js";
+import { createUser, getUserProfile, getUserGarden, updateUser, deleteUser, getMapUsers, addPlantToGarden, removePlantFromGarden, flagForTrade } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -15,7 +14,7 @@ router.delete("/:id", deleteUser);
 // Nested garden routes
 // /users/:userId/garden
 router.post("/:userId/garden", addPlantToGarden); // Add plant
-router.put("/:userId/garden/:plantId", updateTradeStatus); // Toggle forTrade
+router.put("/:userId/garden/:plantId", flagForTrade); // Toggle forTrade
 router.delete("/:userId/garden/:plantId", removePlantFromGarden); // Remove plant
 
 export default router;

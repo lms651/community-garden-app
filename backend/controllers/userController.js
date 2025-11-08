@@ -14,7 +14,6 @@ export const createUser = async (req, res) => {
     }
 };
 
-
 // Get user info for header/profile
 export const getUserProfile = async (req, res) => {
   try {
@@ -156,7 +155,7 @@ export const removePlantFromGarden = async (req, res) => {
 };
 
 // Toggle forTrade status for plant in user garden
-export const updatTradeStatus = async (req, res) => {
+export const flagForTrade = async (req, res) => {
   try {
     const { userId, plantId } = req.params;
     const { forTrade } = req.body; // true or false

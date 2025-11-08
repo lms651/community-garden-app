@@ -10,7 +10,7 @@ describe("User routes", () => {
   let testUser;
 
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI_TEST);
   });
 
   afterAll(async () => {
@@ -18,7 +18,7 @@ describe("User routes", () => {
     await mongoose.connection.close();
   });
 
-  // Create a new user to use in tests
+  // Create a new user for tests
   beforeEach(async () => {
     testUser = await User.create({
       userName: "TestUser",
@@ -45,6 +45,18 @@ describe("User routes", () => {
     expect(res.body.userName).toBe("NewUser");
     expect(res.body.email).toBe("new@example.com");
   });
+
+    it("should not allow a user to select a pre-existing username", async () => {
+        const res = await request(app)
+        .post("/users")
+        .send({
+            userName: "TestUser",
+            email: "new@example.com",
+            address: "456 Another St",
+        });
+
+        expect(res.statusCode).toBe(400);
+    });
 
   it("should get a user by ID", async () => {
     const res = await request(app).get(`/users/${testUser._id}`);
