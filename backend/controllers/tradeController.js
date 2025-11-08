@@ -1,41 +1,6 @@
 import Trade from "../models/trade.js";
 import logger from '../logger.js'; 
 
-// // Create new trade
-// export const createTrade = async (req, res) => {
-//     try {
-//         const { initiator, recipient, initiatorPlants, recipientPlants } = req.body;
-
-//         const existingTrade = await Trade.findOne({
-//     dateDeleted: null,
-//     status: { $in: ["pending", "accepted"] },
-//     $or: [
-//         { $and: [{ initiator: initiator }, { recipient: recipient }] },
-//         { $and: [{ initiator: recipient }, { recipient: initiator }] }
-//     ]
-// });
-
-//         if (existingTrade) {
-//         return res
-//             .status(400)
-//             .json({ message: "A trade already exists between these users." });
-//         }
-//         // otherwise create new  trade
-//         const trade = await Trade.create({
-//             initiator,
-//             recipient,
-//             initiatorPlants,
-//             recipientPlants
-//         });
-
-//         res.status(201).json(trade);
-//     } catch (error) {
-//             logger.error("Error creating trade:", error);
-//             res.status(500).json({ message: error.message });
-//     }
-// };
-
-// Create new trade
 export const createTrade = async (req, res) => {
   try {
     const { initiator, recipient, initiatorPlants, recipientPlants } = req.body;

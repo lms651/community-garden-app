@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import userRoutes from "./routes/userRoutes.js";
 import plantRoutes from "./routes/plantRoutes.js";
 import tradeRoutes from "./routes/tradeRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
@@ -23,6 +24,8 @@ app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // ROUTES
+app.use("/auth", authRoutes);
+
 app.use("/users", userRoutes);
 app.use("/plants", plantRoutes);
 app.use("/trades", tradeRoutes);
