@@ -23,7 +23,7 @@ export const googleAuth = async (req, res) => {
       user = await User.create({
         userName: name,
         email,
-        image: picture,
+        image: picture
       });
     }
 

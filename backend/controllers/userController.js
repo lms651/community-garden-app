@@ -5,9 +5,15 @@ import logger from '../logger.js';
 export const createUser = async (req, res) => {
     try {
         const { userName, email, address } = req.body;
+
+        if (!address) {
+          return res.status(400).json({ message: "Address is required" });
+        }
+
         const user = new User({ userName, email, address });
         await user.save();
         res.status(201).json(user);
+        
     } catch (error) {
         logger.error("Error creating user:", error);
         res.status(400).json({ message: error.message });

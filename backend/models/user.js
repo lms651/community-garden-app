@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     userName: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    address: { type: String, required: true }, // ADD GOOGLE LOCATION LATER
+    address: { type: String }, // ADD GOOGLE LOCATION LATER
     image: { type: String, default: "" },
     garden: [
         {
