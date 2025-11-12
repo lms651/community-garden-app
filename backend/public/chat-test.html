@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trade Chat Test</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    #messages { border: 1px solid #ccc; padding: 10px; height: 250px; overflow-y: auto; margin-bottom: 10px; }
+    input { margin: 5px; }
+    button { margin: 5px; }
+    .message { margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Trade Chat Test</h2>
+
+  <input id="room" placeholder="Trade ID" />
+  <input id="user" placeholder="Username" />
+  <button onclick="joinRoom()">Join Trade Chat</button>
+
+  <div id="messages"></div>
+
+  <input id="message" placeholder="Type message..." />
+  <button onclick="sendMessage()">Send</button>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io("http://localhost:5000", { transports: ["websocket"] });
+    let currentRoom = "";
+    let userId = `test-${Math.floor(Math.random() * 1000)}`; // random temporary ID
+
+    // Join trade room
+    function joinRoom() {
+      const tradeId = document.getElementById("room").value.trim();
+      const userName = document.getElementById("user").value.trim();
+      if (!tradeId || !userName) return alert("Enter both trade ID and username");
+
+      currentRoom = tradeId;
+
+      socket.emit("joinTradeChat", { tradeId, userId, userName });
+      console.log(`Joining trade chat: ${tradeId} as ${userName}`);
+    }
+
+    // Listen for system messages
+    socket.on("systemMessage", (data) => {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.textContent = `[${data.sentTime}] ${data.sender}: ${data.message}`;
+      document.getElementById("messages").appendChild(div);
+      scrollToBottom();
+    });
+
+    // Listen for chat messages
+    socket.on("chatMessage", (data) => {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.textContent = `[${data.sentTime}] ${data.sender}: ${data.message}`;
+      document.getElementById("messages").appendChild(div);
+      scrollToBottom();
+    });
+
+    // Send a message
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      const userName = document.getElementById("user").value.trim();
+      if (!message || !currentRoom) return;
+
+      socket.emit("tradeMessage", { tradeId: currentRoom, userName, message });
+      document.getElementById("message").value = "";
+    }
+
+    function scrollToBottom() {
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // Debug connection
+    socket.on("connect", () => console.log("Connected to server:", socket.id));
+    socket.on("disconnect", () => console.log("Disconnected from server"));
+  </script>
+</body>
+</html>

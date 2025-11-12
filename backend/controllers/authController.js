@@ -25,9 +25,12 @@ export const googleAuth = async (req, res) => {
         email,
         image: picture
       });
+    } else if (user.image !== picture) {
+      // Update the image if Google photo changed
+      user.image = picture;
+      await user.save();
     }
 
-    // Sign your own JWT for your app session
     const appToken = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,

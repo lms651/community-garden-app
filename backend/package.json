@@ -24,12 +24,14 @@
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.2",
     "pino": "^10.1.0",
-    "pino-pretty": "^13.1.2"
+    "pino-pretty": "^13.1.2",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.5",
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",
+    "socket.io-client": "^4.8.1",
     "supertest": "^7.1.4"
   }
 }

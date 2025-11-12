@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import request from "supertest";
 import dotenv from "dotenv";
-import app from "../server.js";
+import app from "../app.js";
 import User from "../models/user.js";
 import Plant from "../models/plant.js";
 
