@@ -1,3 +1,10 @@
+import LandingCarousel from "../components/LandingCarousel";
+
 export default function LandingPage() {
-  return <main>Community Garden Main Content</main>;
+  return (
+    <main>
+      <h1>Community Garden Main Content</h1>
+      <LandingCarousel />
+    </main>
+  );
 }
