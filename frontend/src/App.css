@@ -16,6 +16,11 @@ header {
   box-sizing: border-box; 
 }
 
+.right-section {
+  display: flex;
+  gap: 10px;
+}
+
 footer {
   display: flex;
   align-items: center;
@@ -34,8 +39,40 @@ footer {
 
 .landing-carousel img {
   width: 100%;
-  height: 500px; /* adjust as needed */
+  height: 500px;
   object-fit: cover;
   border-radius: 8px;
-  
+}
+
+button {
+    border-radius: 6px;
+    border: none;
+    background-color: #379d80;
+    color: #ffffff;
+    width: 150px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 10px;
+    letter-spacing: -.5px;
+    cursor: pointer;
+}
+
+button:hover {
+  background-color: #157258;
+}
+
+
+.google-btn {
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: none;
+  background-color: #4285f4;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.google-btn:hover {
+  background-color: #3367d6;
 }

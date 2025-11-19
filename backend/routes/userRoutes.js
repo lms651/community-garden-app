@@ -4,7 +4,7 @@ import { createUser, getUserProfile, getUserGarden, updateUser, deleteUser, getM
 const router = express.Router();
 
 // /users
-router.post("/", createUser);
+router.post("/register", createUser);
 router.get("/", getMapUsers);
 router.get("/:id", getUserProfile);
 router.get("/:id", getUserGarden);

@@ -19,12 +19,16 @@ export const googleAuth = async (req, res) => {
 
     // Find or create user in DB
     let user = await User.findOne({ email });
+    let isNewUser = false;
+
     if (!user) {
       user = await User.create({
         userName: name,
         email,
         image: picture
       });
+      isNewUser = true;
+
     } else if (user.image !== picture) {
       // Update the image if Google photo changed
       user.image = picture;
@@ -37,7 +41,7 @@ export const googleAuth = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.status(200).json({ token: appToken, user });
+    res.status(200).json({ token: appToken, user, isNewUser });
   } catch (error) {
     console.error("Error verifying Google token:", error);
     res.status(401).json({ message: "Invalid Google token" });
