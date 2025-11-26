@@ -1,36 +1,3 @@
-// import Button from "./Button";
-// import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-// import type { User } from "../types/User";
-// import logo from "../public/images/logo5.png";
-
-// interface HeaderProps {
-//   user: User | null;
-//   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-// }
-
-// export default function Header({ user, setUser }: HeaderProps) {
-//   const navigate = useNavigate();
-
-//   const handleLogIn = () => {
-//     navigate("/login");
-//   };
-
-//   return (
-//     <header>
-//       <div className="left-section">
-//         <Link to="/" className="logo-link">
-//           <img className="logo" src={logo} alt="Community Garden Logo" />
-//           <span className="title">Community Garden</span>
-//         </Link>
-//       </div>
-//       <div className="right-section">
-//         <Button text="Log in or Sign up!" onClick={handleLogIn} />
-//       </div>
-//     </header>
-//   );
-// }
-
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, MenuItems, MenuItem, MenuButton } from "@headlessui/react";
 import { FaUserCircle } from "react-icons/fa";
@@ -74,15 +41,19 @@ export default function Header({ user, setUser }: HeaderProps) {
         {user ? (
           // Logged-in avatar dropdown
           <Menu as="div" className="relative-avatar-container">
-            <MenuButton>
-              {user.image ? (
+            <MenuButton className="avatar-button">
+              <FaUserCircle className="avatar-icon" />
+              {user?.image && (
                 <img
                   src={user.image}
-                  className="avatar-img"
                   alt="User Avatar"
+                  className="avatar-img"
+                  onError={(e) => {
+                    // hide broken image so the FaUserCircle is visible
+                    (e.currentTarget as HTMLImageElement).style.display =
+                      "none";
+                  }}
                 />
-              ) : (
-                <FaUserCircle size={35} className="avatar-icon" />
               )}
             </MenuButton>
 
@@ -109,7 +80,7 @@ export default function Header({ user, setUser }: HeaderProps) {
             </MenuItems>
           </Menu>
         ) : (
-          // Not logged in → show login button
+          // If not logged in, show login button
           <Button text="Log in or Sign up!" onClick={handleLogin} />
         )}
       </div>
