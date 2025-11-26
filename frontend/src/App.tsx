@@ -4,19 +4,35 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LandingPage from "./pages/LandingPage";
 import GoogleLogin from "./pages/GoogleLogin";
+import React from "react";
+import type { User } from "./types/User";
+import Profile from "./pages/Profile";
 
 function App() {
+  const [user, setUser] = React.useState<User | null>(null);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userData = localStorage.getItem("user");
+
+    if (token && userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
   return (
     <>
       <Router>
-        <Header />
+        <Header user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<GoogleLogin />} />
-          {/* <Route path="/home" element={<UserHomePage />} />
-          <Route path="/neighbor/:id" element={<NeighborPage />} />
-          <Route path="/trades" element={<MyTradesPage />} />
-          <Route path="/profile/edit" element={<EditProfilePage />} /> */}
+          <Route path="/login" element={<GoogleLogin setUser={setUser} />} />
+          <Route path="/profile" element={<Profile user={user} />} />
+
+          {/* Future routes:
+          <Route path="/my-trades" element={<MyTrades />} />
+          <Route path="/trade-history" element={<TradeHistory />} />
+          */}
         </Routes>
       </Router>
       <Footer />

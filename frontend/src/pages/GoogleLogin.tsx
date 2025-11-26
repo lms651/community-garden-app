@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import type { User } from "../types/User";
 
-export default function GoogleLogin() {
+interface GoogleLoginProps {
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+export default function GoogleLogin({ setUser }: GoogleLoginProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,15 +40,23 @@ export default function GoogleLogin() {
 
       const data = await res.json();
 
-      if (data.token) {
+      if (data.token && data.user) {
+        // Save to local storage
         localStorage.setItem("token", data.token);
-        navigate("/");
+        localStorage.setItem("user", JSON.stringify(data.user));
 
+        // Update global state
+        setUser(data.user);
+
+        // Toast message BEFORE redirect
         if (data.isNewUser) {
-          window.toastr.success("Account created successfully!", "Welcome");
+          window.toastr.success("Account created successfully!", "Welcome!");
         } else {
-          window.toastr.success("Logged in successfully!", "Welcome back");
+          window.toastr.success("Logged in successfully!", "Welcome back!");
         }
+
+        // Go home
+        navigate("/");
       }
     } catch (err) {
       console.error(err);

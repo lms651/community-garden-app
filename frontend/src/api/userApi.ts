@@ -15,9 +15,8 @@ export async function createUser(user: RegisterUser) {
     });
 
     if (!res.ok) {
-        // show your fixed toastr message
         toastr.error("Please choose another username", "Error");
-        throw new Error("User creation failed"); // generic error
+        throw new Error("User creation failed");
     }
 
     return res.json();
