@@ -205,3 +205,58 @@ button:hover {
 .google-btn:hover {
   background-color: #3367d6;
 }
+
+/* Parent container relative so dropdown positions correctly */
+.plant-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown box */
+.plant-dropdown-menu {
+  position: absolute;
+  top: 100%; /* right below the button */
+  left: 0;
+  width: 200px;
+  max-height: 200px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  padding: 5px;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+/* Search input inside dropdown */
+.plant-dropdown-search {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Individual item/button */
+.plant-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+    color: #333;
+}
+
+.plant-dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* No matches message */
+.no-matches {
+  padding: 5px;
+  color: #888;
+  font-size: 0.9em;
+}

@@ -1,17 +1,3 @@
-// import type { User } from "../types/User";
-
-// interface EditProfileProps {
-//   user: User | null;
-// }
-
-// export default function EditProfile({ user }: EditProfileProps) {
-//   return (
-//     <div>
-//       <h1>Edit your information here, {user?.userName}</h1>
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { User } from "../types/User";
