@@ -27,7 +27,7 @@ export const getUserProfile = async (req, res) => {
       _id: req.params.id,
       dateDeleted: null
     })
-    .select("userName image email address");
+    .select("userName displayName image email address");
 
     if (!user) return res.status(404).json({ message: "User not found" });
 
@@ -43,17 +43,17 @@ export const getUserProfile = async (req, res) => {
 export const getMapUsers = async (req, res) => {
   try {
     const users = await User.find({ dateDeleted: null })
-      .select("userName address garden.forTrade");
-    
-    // send to frontend
+      .select("displayName userName address garden.forTrade");
+
     const formattedUsers = users.map(user => {
       const hasTradePlants = user.garden.some(item => item.forTrade === true);
 
       return {
-        id: user._id, // for redirect on click
-        userName: user.userName, // for hover
-        address: user.address, // for pin location
-        hasTradePlants // for pin color
+        id: user._id,
+        // Prefer displayName; fall back to userName if they haven't set one yet
+        name: user.displayName || user.userName,
+        address: user.address,
+        hasTradePlants
       };
     });
 
@@ -85,10 +85,10 @@ export const getUserGarden = async (req, res) => {
 // add image as req.body later!!!
 export const updateUser = async (req, res) => {
   try {
-    const { email, address } = req.body;
+    const { displayName, email, address } = req.body;
     const updatedUser = await User.findOneAndUpdate(
       { _id: req.params.id, dateDeleted: null },
-      { email, address },
+      { displayName, email, address },
       { new: true, runValidators: true } // new: true means return updated doc. run validators makes sure you follow schema.
     );
     if (!updatedUser) return res.status(404).json({ message: "User not found" });

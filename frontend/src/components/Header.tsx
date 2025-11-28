@@ -28,6 +28,10 @@ export default function Header({ user, setUser }: HeaderProps) {
     navigate("/profile");
   };
 
+  const handleEditProfile = () => {
+    navigate("/edit-profile");
+  };
+
   return (
     <header>
       <div className="left-section">
@@ -65,7 +69,17 @@ export default function Header({ user, setUser }: HeaderProps) {
                 }
                 onClick={handleProfile}
               >
-                View / Edit Profile
+                My Garden
+              </MenuItem>
+
+              <MenuItem
+                as="button"
+                className={({ active }) =>
+                  `menu-item ${active ? "active" : ""}`
+                }
+                onClick={handleEditProfile}
+              >
+                Edit Profile
               </MenuItem>
 
               <MenuItem

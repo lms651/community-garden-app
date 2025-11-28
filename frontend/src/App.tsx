@@ -7,6 +7,7 @@ import GoogleLogin from "./pages/GoogleLogin";
 import React from "react";
 import type { User } from "./types/User";
 import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   const [user, setUser] = React.useState<User | null>(null);
@@ -28,7 +29,10 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<GoogleLogin setUser={setUser} />} />
           <Route path="/profile" element={<Profile user={user} />} />
-
+          <Route
+            path="/edit-profile"
+            element={<EditProfile user={user} setUser={setUser} />}
+          />
           {/* Future routes:
           <Route path="/my-trades" element={<MyTrades />} />
           <Route path="/trade-history" element={<TradeHistory />} />

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     userName: { type: String, required: true, unique: true },
-    displayName: { type: String, required: true, unique: true, sparse: true },
+    displayName: { type: String, sparse: true },
     email: { type: String, required: true, unique: true },
     address: { type: String }, // ADD GOOGLE LOCATION LATER
     image: { type: String, default: "" },
