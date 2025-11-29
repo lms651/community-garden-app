@@ -28,7 +28,10 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<GoogleLogin setUser={setUser} />} />
-          <Route path="/profile" element={<Profile user={user} />} />
+          <Route
+            path="/profile"
+            element={<Profile user={user} setUser={setUser} />}
+          />
           <Route
             path="/edit-profile"
             element={<EditProfile user={user} setUser={setUser} />}
@@ -45,3 +48,71 @@ function App() {
 }
 
 export default App;
+
+// import "./App.css";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import Header from "./components/Header";
+// import Footer from "./components/Footer";
+// import LandingPage from "./pages/LandingPage";
+// import GoogleLogin from "./pages/GoogleLogin";
+// import React from "react";
+// import type { User } from "./types/User";
+// import Profile from "./pages/Profile";
+// import EditProfile from "./pages/EditProfile";
+
+// function App() {
+//   const [user, setUser] = React.useState<User | null>(null);
+
+//   React.useEffect(() => {
+//     const token = localStorage.getItem("token");
+//     const userId = localStorage.getItem("userId"); // store just the ID on login
+
+//     if (!token || !userId) return;
+
+//     const fetchUserWithGarden = async () => {
+//       try {
+//         const res = await fetch(
+//           `http://localhost:5000/users/${userId}/garden`,
+//           {
+//             headers: {
+//               Authorization: `Bearer ${token}`, // if your backend uses auth
+//             },
+//           }
+//         );
+
+//         if (!res.ok) throw new Error("Failed to fetch user garden");
+
+//         const dbUser = await res.json();
+//         setUser(dbUser); // now user.garden is populated
+//       } catch (err) {
+//         console.error("Error fetching user with garden:", err);
+//         setUser(null);
+//       }
+//     };
+
+//     fetchUserWithGarden();
+//   }, []);
+
+//   return (
+//     <>
+//       <Router>
+//         <Header user={user} setUser={setUser} />
+//         <Routes>
+//           <Route path="/" element={<LandingPage />} />
+//           <Route path="/login" element={<GoogleLogin setUser={setUser} />} />
+//           <Route
+//             path="/profile"
+//             element={<Profile user={user} setUser={setUser} />}
+//           />
+//           <Route
+//             path="/edit-profile"
+//             element={<EditProfile user={user} setUser={setUser} />}
+//           />
+//         </Routes>
+//       </Router>
+//       <Footer />
+//     </>
+//   );
+// }
+
+// export default App;

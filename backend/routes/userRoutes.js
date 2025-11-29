@@ -13,6 +13,7 @@ router.delete("/:id", deleteUser);
 
 // Nested garden routes
 // /users/:userId/garden
+router.get("/:userId/garden", getUserGarden); // NEW: fetch the user's garden
 router.post("/:userId/garden", addPlantToGarden); // Add plant
 router.put("/:userId/garden/:plantId", flagForTrade); // Toggle forTrade
 router.delete("/:userId/garden/:plantId", removePlantFromGarden); // Remove plant
